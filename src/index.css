@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+.page-wrapper {
+  @apply max-w-xl mx-auto p-6 bg-white dark:bg-[#2a2a3c] rounded-xl shadow-lg backdrop-blur-md;
+}
