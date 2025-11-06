@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ToastContainer } from 'react-toastify';
@@ -20,21 +20,33 @@ function App() {
   const theme = useExpenseStore(state => state.theme);
   const navbarCollapsed = useExpenseStore(state => state.navbarCollapsed);
   const location = useLocation();
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
     localStorage.setItem('theme', theme);
+
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640); // Tailwind's sm breakpoint
+    };
+
+    handleResize(); // initial check
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, [theme]);
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark font-inter transition-all duration-300">
+    <div className="min-h-screen bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark font-inter transition-all duration-300">
+      {/* Navbar */}
       <Navbar />
+
+      {/* Main Content */}
       <main
-        className={`flex-1 transition-all duration-300 ${
-          navbarCollapsed ? 'lg:ml-20' : 'lg:ml-64'
-        } flex justify-center items-start p-4 sm:p-6 lg:p-8`}
+        className={`transition-all duration-300 pt-16 sm:pt-0 ${
+          isMobile ? 'px-4' : navbarCollapsed ? 'sm:ml-20 px-6' : 'sm:ml-64 px-6'
+        }`}
       >
-        <div className="w-full max-w-6xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <AnimatePresence mode="wait">
             <motion.div
               key={location.pathname}
