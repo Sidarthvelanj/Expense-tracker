@@ -10,3 +10,7 @@ body {
 .page-wrapper {
   @apply max-w-xl mx-auto p-6 bg-white dark:bg-[#2a2a3c] rounded-xl shadow-lg backdrop-blur-md;
 }
+body {
+  overflow-x: hidden;
+}
+

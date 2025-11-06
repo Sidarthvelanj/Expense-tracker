@@ -22,33 +22,42 @@ function Analyticspage() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen flex justify-center items-center px-4 sm:px-6 lg:px-8"
+      className="min-h-screen flex justify-center items-start px-4 sm:px-6 lg:px-8 py-8"
     >
-      <div className="w-full max-w-5xl bg-white dark:bg-[#2a2a3c] rounded-xl shadow-lg p-8 backdrop-blur-md space-y-6">
-        <h2 className="text-3xl font-bold text-gray-800 dark:text-white text-center">Category Analytics</h2>
+      <div className="w-full max-w-6xl bg-white dark:bg-[#2a2a3c] rounded-xl shadow-lg p-6 sm:p-8 backdrop-blur-md space-y-6">
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white text-center">
+          Category Analytics
+        </h2>
 
-        <div className="flex flex-col md:flex-row gap-8 items-start justify-between">
+        <div className="flex flex-col lg:flex-row gap-8 items-start justify-between">
           {/* Chart Section */}
-          <div className="flex-1 h-[280px] flex items-center justify-center overflow-hidden">
-            <div className="w-[220px] h-[220px]">
+          <div className="flex-1 flex items-center justify-center overflow-hidden">
+            <div className="w-full max-w-[700px] h-[320px] sm:h-[400px] md:h-[500px] lg:h-[600px] xl:h-[700px] bg-white dark:bg-[#1f1f2e] rounded-xl shadow-xl p-6 sm:p-8 backdrop-blur-md">
               <Chart expenses={filtered} />
             </div>
           </div>
 
           {/* Indicators Section */}
-          <div className="w-full md:w-[300px] space-y-4">
-            <h3 className="text-xl font-semibold text-gray-700 dark:text-white">Indicators</h3>
+          <div className="w-full lg:w-[300px] space-y-4">
+            <h3 className="text-lg sm:text-xl font-semibold text-gray-700 dark:text-white">
+              Indicators
+            </h3>
             {Object.keys(categoryTotals).length > 0 ? (
               <ul className="space-y-2">
                 {Object.entries(categoryTotals).map(([category, total]) => (
-                  <li key={category} className="flex justify-between text-gray-600 dark:text-gray-300">
+                  <li
+                    key={category}
+                    className="flex justify-between text-gray-600 dark:text-gray-300 text-sm sm:text-base"
+                  >
                     <span>{category}</span>
                     <span>₹{total}</span>
                   </li>
                 ))}
               </ul>
             ) : (
-              <p className="text-gray-500 dark:text-gray-400">No data for this month.</p>
+              <p className="text-gray-500 dark:text-gray-400 text-sm">
+                No data for this month.
+              </p>
             )}
           </div>
         </div>

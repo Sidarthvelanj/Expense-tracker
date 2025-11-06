@@ -21,42 +21,44 @@ function Chart({ expenses }) {
   const data = Object.values(categoryTotals);
 
   return (
-    <Pie
-      data={{
-        labels,
-        datasets: [
-          {
-            label: 'Expenses by Category',
-            data,
-            backgroundColor: [
-              '#0d6efd',
-              '#4f9cff',
-              '#6c757d',
-              '#ffc107',
-              '#198754',
-              '#dc3545',
-            ],
-            borderColor: '#fff',
-            borderWidth: 2,
-          },
-        ],
-      }}
-      options={{
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: 'bottom',
-            labels: {
-              color: '#fff',
-              font: {
-                size: 14,
+    <div className="w-full h-[300px] sm:h-[400px] lg:h-[500px]">
+      <Pie
+        data={{
+          labels,
+          datasets: [
+            {
+              label: 'Expenses by Category',
+              data,
+              backgroundColor: [
+                '#0d6efd',
+                '#4f9cff',
+                '#6c757d',
+                '#ffc107',
+                '#198754',
+                '#dc3545',
+              ],
+              borderColor: '#fff',
+              borderWidth: 2,
+            },
+          ],
+        }}
+        options={{
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                color: '#fff',
+                font: {
+                  size: 14,
+                },
               },
             },
           },
-        },
-      }}
-    />
+        }}
+      />
+    </div>
   );
 }
 

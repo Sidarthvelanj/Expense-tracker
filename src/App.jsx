@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 import Navbar from './components/Navbar.jsx';
 import Home from './pages/Home.jsx';
 import AddExpense from './pages/AddExpense.jsx';
@@ -12,6 +13,7 @@ import Recurringpage from './pages/Recurringpage.jsx';
 import Analyticspage from './pages/Analyticspage.jsx';
 import Bankpage from './pages/Bankpage.jsx';
 import Smartaipage from './pages/Smartaipage.jsx';
+
 import { useExpenseStore } from './store/useExpenseStore.jsx';
 
 function App() {
@@ -25,14 +27,14 @@ function App() {
   }, [theme]);
 
   return (
-    <div className="flex min-h-screen bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark font-inter transition-all duration-300">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark font-inter transition-all duration-300">
       <Navbar />
       <main
         className={`flex-1 transition-all duration-300 ${
-          navbarCollapsed ? 'ml-20' : 'ml-64'
-        } flex justify-center items-center p-6`}
+          navbarCollapsed ? 'lg:ml-20' : 'lg:ml-64'
+        } flex justify-center items-start p-4 sm:p-6 lg:p-8`}
       >
-        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-6xl mx-auto">
           <AnimatePresence mode="wait">
             <motion.div
               key={location.pathname}

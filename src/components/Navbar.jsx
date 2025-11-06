@@ -12,7 +12,7 @@ const navItems = [
   { path: '/budget', label: 'Budget', icon: Wallet },
   { path: '/recurring', label: 'Recurring', icon: Repeat },
   { path: '/analytics', label: 'Analytics', icon: BarChart },
-  { path: '/bank-sync', label: 'Bank Sync', icon: Banknote }, // ✅ lowercase path
+  { path: '/bank-sync', label: 'Bank Sync', icon: Banknote },
   { path: '/smart-suggest', label: 'Smart AI', icon: Brain },
   { path: '/summary', label: 'Summary', icon: LayoutDashboard },
 ];
@@ -28,7 +28,7 @@ function Navbar() {
     <div
       className={`fixed top-0 left-0 h-screen bg-white dark:bg-[#1f1f2e] shadow-lg transition-all duration-300 z-50 flex flex-col justify-between ${
         navbarCollapsed ? 'w-20' : 'w-64'
-      }`}
+      } hidden sm:flex`}
     >
       <div>
         <div className="flex items-center justify-between px-4 py-4 border-b border-gray-300 dark:border-gray-700">
