@@ -4,10 +4,14 @@ import { useExpenseStore } from '../store/useExpenseStore.jsx';
 import Chart from '../components/Chart.jsx';
 import ExportCSV from '../components/ExportCSV.jsx';
 import ExpenseList from '../components/ExpenseList.jsx';
+import { toast } from 'react-toastify';
 
 function Summary() {
   const expenses = useExpenseStore(state => state.expenses);
+  const clearExpenses = useExpenseStore(state => state.clearExpenses);
+  const undoClearExpenses = useExpenseStore(state => state.undoClearExpenses);
   const [month, setMonth] = useState(dayjs().format('YYYY-MM'));
+  const [showClearedToast, setShowClearedToast] = useState(false);
 
   const filteredExpenses = expenses.filter(e =>
     e.date && e.date.startsWith(month)
@@ -18,7 +22,7 @@ function Summary() {
 
   try {
     totalExpenses = filteredExpenses.reduce((sum, e) => {
-      if (typeof e.amount !== 'number' || e.amount > Number.MAX_SAFE_INTEGER) {
+      if (typeof e.amount !== 'number' || e.amount > 999999999) {
         hasOverflow = true;
         throw new Error('Invalid amount');
       }
@@ -29,12 +33,23 @@ function Summary() {
   }
 
   const formatCurrency = (value) => {
-    if (hasOverflow || value > Number.MAX_SAFE_INTEGER) return '₹∞';
+    if (hasOverflow || value > 999999999) return '₹∞';
     return new Intl.NumberFormat('en-IN', {
       style: 'currency',
       currency: 'INR',
       maximumFractionDigits: 2,
     }).format(value);
+  };
+
+  const handleClear = () => {
+    clearExpenses();
+    setShowClearedToast(true);
+    toast.info('History cleared');
+  };
+
+  const handleUndo = () => {
+    undoClearExpenses();
+    toast.success('History restored');
   };
 
   return (
@@ -66,6 +81,22 @@ function Summary() {
             </h3>
             <ExportCSV data={filteredExpenses} />
           </div>
+        </div>
+
+        {/* Clear & Undo Buttons */}
+        <div className="flex justify-end gap-2">
+          <button
+            onClick={handleClear}
+            className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+          >
+            Clear History
+          </button>
+          <button
+            onClick={handleUndo}
+            className="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 transition"
+          >
+            Undo
+          </button>
         </div>
 
         {/* Chart */}

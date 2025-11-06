@@ -15,6 +15,15 @@ export default {
         'muted-light': '#6c757d',
         'muted-dark': '#a0a0b2',
       },
+      animation: {
+        fadeOut: 'fadeOut 0.5s ease-in-out',
+      },
+      keyframes: {
+        fadeOut: {
+          '0%': { opacity: 1 },
+          '100%': { opacity: 0 },
+        },
+      },
     },
   },
   plugins: [],

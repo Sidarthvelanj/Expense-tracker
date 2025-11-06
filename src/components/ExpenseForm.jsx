@@ -10,14 +10,27 @@ function ExpenseForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!label || !amount) return;
+
+    const parsedAmount = parseFloat(amount);
+
+    if (!label || !amount) {
+      toast.error('Please fill in all fields.');
+      return;
+    }
+
+    if (isNaN(parsedAmount) || parsedAmount <= 0 || parsedAmount > 999999999) {
+      toast.error('Amount must be between ₹1 and ₹999,999,999.');
+      return;
+    }
+
     addExpense({
       id: Date.now(),
       label,
-      amount: parseFloat(amount),
+      amount: parsedAmount,
       category,
       date: new Date().toISOString(),
     });
+
     toast.success('Expense added!');
     setLabel('');
     setAmount('');
@@ -45,6 +58,7 @@ function ExpenseForm() {
           placeholder="Amount"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
+          max={999999999}
           className="p-3 rounded-md bg-white/10 dark:bg-white/10 text-black dark:text-white placeholder:text-muted dark:placeholder:text-[#a0a0b2] border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-accent-light dark:focus:ring-accent-dark"
         />
 

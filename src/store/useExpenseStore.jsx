@@ -35,6 +35,19 @@ export const useExpenseStore = create((set, get) => ({
     set({ expenses: updated });
   },
 
+  clearExpenses: () => {
+    const current = get().expenses;
+    localStorage.setItem('expensesBackup', JSON.stringify(current));
+    localStorage.setItem('expenses', JSON.stringify([]));
+    set({ expenses: [] });
+  },
+
+  undoClearExpenses: () => {
+    const backup = JSON.parse(localStorage.getItem('expensesBackup')) || [];
+    localStorage.setItem('expenses', JSON.stringify(backup));
+    set({ expenses: backup });
+  },
+
   toggleTheme: () => {
     const newTheme = get().theme === 'dark' ? 'light' : 'dark';
     localStorage.setItem('theme', newTheme);
